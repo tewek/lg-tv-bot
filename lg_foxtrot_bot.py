@@ -1,10 +1,11 @@
+
+import os
 import json
 import requests
 from bs4 import BeautifulSoup
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, CallbackQueryHandler, ContextTypes, filters
 
-# =================== Парсинг з Foxtrot =======================
 def parse_lg_tvs():
     url = "https://www.foxtrot.com.ua/uk/shop/televizory-lg.html"
     headers = {"User-Agent": "Mozilla/5.0"}
@@ -37,10 +38,8 @@ def parse_lg_tvs():
 
     return tvs
 
-# =============== Telegram Bot ============================
-
 user_state = {}
-cached_tvs = {}  # Кеш для швидкої відповіді
+cached_tvs = {}
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
@@ -79,9 +78,12 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if found:
             text = (
-                f"📺 <b>{found['назва']}</b>\n"
-                f"💰 Ціна: {found['ціна']}\n"
-                f"📄 Опис: {found['опис'] or 'Немає'}\n"
+                f"📺 <b>{found['назва']}</b>
+"
+                f"💰 Ціна: {found['ціна']}
+"
+                f"📄 Опис: {found['опис'] or 'Немає'}
+"
                 f"🔗 [Перейти до товару]({found['посилання']})"
             )
             await update.message.reply_html(text, disable_web_page_preview=False)
@@ -91,8 +93,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Натисніть /start або скористайтесь кнопками.")
 
 def main():
-    import os
-TOKEN = os.getenv("7661652006:AAECw4Bo2hLpdFoTLej4-3_DN-bEHxY6-Co")
+    TOKEN = "7661652006:AAECw4Bo2hLpdFoTLej4-3_DN-bEHxY6-Co"
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
