@@ -92,7 +92,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     import os
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("7661652006:AAECw4Bo2hLpdFoTLej4-3_DN-bEHxY6-Co")
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
